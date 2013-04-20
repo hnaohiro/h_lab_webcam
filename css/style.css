@@ -1,0 +1,17 @@
+.container-narrow {
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.nav-tabs img {
+  height: 60px;
+}
+
+.tab-pane img {
+  width: 100%;
+}
+
+.top-text {
+  margin: 20px;
+  font-size: 24px;
+}
