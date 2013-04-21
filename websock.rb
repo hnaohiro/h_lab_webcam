@@ -41,8 +41,6 @@ EM::run do
     ws.onopen do |handshake|
       puts 'connected from ' + get_ip(ws)
       connections.push(ws)
-
-      send(ws, 'init', {'size' => webCam.size})
     end
 
     ws.onclose do |handshake|
@@ -53,25 +51,21 @@ EM::run do
 
   EM::defer do
     loop do
-      sleep 0.5
+      sleep 0.1
       next if connections.size == 0
 
       images = webCam.get_with_base64
       connections.each do |con|
-        send(con, 'update', {'size' => images.size, 'images' => images})
+        con.send(images[0]);
       end
     end
-  end
-
-  def send(con, msg, data)
-    con.send(JSON.generate({'msg' => msg, 'data' => data}))
   end
 
   def get_ip(con)
     if con.get_peername == nil
       'unknown'
     else
-      port, ip = Socket.unpack_sockaddr_in(con.get_peername)
+      _, ip = Socket.unpack_sockaddr_in(con.get_peername)
       ip
     end
   end
