@@ -1,9 +1,6 @@
-#coding:utf-8
-
 require 'opencv'
 require 'em-websocket'
 require 'base64'
-require 'json'
 
 class WebCam
   def initialize
@@ -37,7 +34,7 @@ EM::run do
   webCam = WebCam.new
   connections = Array.new
 
-  EM::WebSocket.start(:host => 'localhost', :port => 51234) do |ws|
+  EM::WebSocket.start(:host => '0.0.0.0', :port => 51234) do |ws|
     ws.onopen do |handshake|
       puts 'connected from ' + get_ip(ws)
       connections.push(ws)
