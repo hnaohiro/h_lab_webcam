@@ -3,15 +3,14 @@ require 'em-websocket'
 require 'base64'
 
 class WebCam
-  def initialize
+  def initialize()
     @captures = Array.new
 
-    loop do
+    0.upto(10) do |n|
       begin
-        capture = OpenCV::CvCapture.open(@captures.size)
+        capture = OpenCV::CvCapture.open(n)
         @captures.push(capture)
       rescue
-        break
       end
     end
   end
